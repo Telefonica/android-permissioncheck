@@ -31,9 +31,14 @@ subprojects {
 
 	tasks.withType<KotlinCompile>().configureEach {
 		kotlinOptions {
-			jvmTarget = "1.8"
+			jvmTarget = "17"
 			freeCompilerArgs = listOf("-Xopt-in=kotlin.ExperimentalStdlibApi")
 		}
+	}
+
+	tasks.withType<JavaCompile> {
+		sourceCompatibility = JavaVersion.VERSION_17.toString()
+		targetCompatibility = JavaVersion.VERSION_17.toString()
 	}
 
 	tasks.withType<Test>().configureEach {
@@ -44,4 +49,9 @@ subprojects {
 			exceptionFormat = TestExceptionFormat.FULL
 		}
 	}
+
+	tasks.register<Jar>("sourcesJar") {
+		dependsOn(":plugin-configurator-v1:jar", ":plugin-configurator-v2:jar", ":plugin-core:jar")
+	}
 }
+

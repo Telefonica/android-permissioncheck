@@ -3,11 +3,12 @@ plugins {
 }
 
 android {
-    compileSdkVersion(30)
+    namespace = "io.github.simonschiller.permissioncheck.sample.library"
+    compileSdkVersion(33)
 
     defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(30)
+        minSdkVersion(23)
+        targetSdkVersion(33)
     }
 
     lintOptions {

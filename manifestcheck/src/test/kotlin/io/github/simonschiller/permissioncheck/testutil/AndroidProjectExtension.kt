@@ -138,11 +138,11 @@ class AndroidProjectExtension : BeforeEachCallback, AfterEachCallback {
             }
 
             android {
-            	compileSdkVersion(30)
+            	compileSdkVersion(33)
 
         	    defaultConfig {
-            		minSdkVersion(21)
-            		targetSdkVersion(30)
+            		minSdkVersion(23)
+            		targetSdkVersion(33)
             	}
             
                 lintOptions {
