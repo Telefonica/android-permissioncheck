@@ -14,5 +14,8 @@ jobs:
           distribution: 'zulu'
           java-version: '17'
 
+      - name: Generate jar
+        run: ./gradlew jar
+
       - name: Run checks
         run: ./gradlew test
