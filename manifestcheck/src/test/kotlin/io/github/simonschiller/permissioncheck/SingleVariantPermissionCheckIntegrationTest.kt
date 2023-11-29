@@ -269,7 +269,7 @@ class SingleVariantPermissionCheckIntegrationTest {
         assertEquals(TaskOutcome.UP_TO_DATE, buildResult.tasks.outcomeOf("checkDebugPermissions"))
 
         val manifestFile = androidProject.appDir.resolve("src").resolve("main").resolve("AndroidManifest.xml")
-        manifestFile.writeText(manifestFile.readText().replace("simonschiller", "johndoe")) // Trigger change
+        manifestFile.writeText(manifestFile.readText().replace("INTERNET\"", "INTERNET\" android:required=\"true\"")) // Trigger change
 
         buildResult = androidProject.runTask(
             "checkDebugPermissions",
