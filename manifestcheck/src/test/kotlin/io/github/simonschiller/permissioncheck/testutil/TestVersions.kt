@@ -21,7 +21,7 @@ class TestVersions : ArgumentsProvider {
 
     // Checks if a AGP version (receiver) is compatible with a certain version of Gradle
     private infix fun VersionNumber.isCompatibleWith(gradleVersion: VersionNumber) = when {
-        this >= VersionNumber.parse("8.0.0") -> gradleVersion >= VersionNumber.parse("8.4")
+        this >= VersionNumber.parse("8.0.0") -> gradleVersion >= VersionNumber.parse("8.0")
         else -> false
     }
 
