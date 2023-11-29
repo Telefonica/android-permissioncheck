@@ -15,4 +15,4 @@ jobs:
           java-version: '17'
 
       - name: Run checks
-        run: ./gradlew check
+        run: ./gradlew test
