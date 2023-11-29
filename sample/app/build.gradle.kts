@@ -5,6 +5,7 @@ plugins {
 
 android {
 	compileSdkVersion(33)
+	namespace = "io.github.simonschiller.permissioncheck.sample.app"
 
 	defaultConfig {
 		minSdkVersion(23)

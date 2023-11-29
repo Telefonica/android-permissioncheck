@@ -139,14 +139,15 @@ class AndroidProjectExtension : BeforeEachCallback, AfterEachCallback {
 
             android {
             	compileSdkVersion(30)
-
+                namespace = "io.github.simonschiller.permissioncheck.sample.app"
+                
         	    defaultConfig {
             		minSdkVersion(21)
             		targetSdkVersion(30)
             	}
             
                 lintOptions {
-                    check("")
+                    checkOnly("")
                 }
             }
             
@@ -159,8 +160,7 @@ class AndroidProjectExtension : BeforeEachCallback, AfterEachCallback {
 
         val androidManifest = mainDir.resolve("AndroidManifest.xml")
         androidManifest.writeText("""
-            <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                package="io.github.simonschiller.permissioncheck.sample.app">
+            <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
                 <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
                 <uses-feature android:glEsVersion="0x00020000" android:required="true" />
