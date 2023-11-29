@@ -12,7 +12,7 @@ val uber: Configuration by configurations.creating
 
 dependencies {
     compileOnly(gradleKotlinDsl())
-    compileOnly("com.android.tools.build:gradle:7.0.0")
+    compileOnly("com.android.tools.build:gradle:8.1.4")
 
     uber(project(":plugin-configurator-v1"))
     uber(project(":plugin-core"))

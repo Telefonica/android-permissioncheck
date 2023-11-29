@@ -9,10 +9,10 @@ buildscript {
 		mavenLocal()
 	}
 	dependencies {
-		classpath("com.android.tools.build:gradle:7.0.0")
+		classpath("com.android.tools.build:gradle:8.1.4")
 		classpath("org.jetbrains.kotlin:kotlin-gradle-plugin:$embeddedKotlinVersion")
 
-//		classpath("com.telefonica:manifestcheck:+") // Uncomment to use the sample
+		classpath("com.telefonica:manifestcheck:+") // Uncomment to use the sample
 	}
 }
 
@@ -31,7 +31,7 @@ subprojects {
 
 	tasks.withType<KotlinCompile>().configureEach {
 		kotlinOptions {
-			jvmTarget = "1.8"
+			jvmTarget = "17"
 			freeCompilerArgs = listOf("-Xopt-in=kotlin.ExperimentalStdlibApi")
 		}
 	}
