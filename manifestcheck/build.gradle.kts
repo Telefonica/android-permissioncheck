@@ -37,17 +37,15 @@ tasks.withType<Test>().configureEach {
 }
 
 gradlePlugin {
+    website.set("https://github.com/Telefonica/android-permissioncheck")
+    vcsUrl.set("https://github.com/Telefonica/android-permissioncheck")
     plugins {
         create("manifestcheck") {
             id = "com.telefonica.manifestcheck"
             displayName = "ManifestCheck"
             description = "ManifestCheck is a Gradle plugin that helps you catch Android permission/feature regressions automatically."
             implementationClass = "io.github.simonschiller.permissioncheck.PermissionCheckPlugin"
+            tags.set(listOf("manifestcheck", "permissions"))
         }
     }
-}
-pluginBundle {
-    website = "https://github.com/Telefonica/android-permissioncheck"
-    vcsUrl = "https://github.com/Telefonica/android-permissioncheck"
-    tags = listOf("manifestcheck", "permissions")
 }
