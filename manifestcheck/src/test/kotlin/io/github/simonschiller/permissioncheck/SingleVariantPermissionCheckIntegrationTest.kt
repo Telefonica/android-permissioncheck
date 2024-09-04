@@ -70,17 +70,17 @@ class SingleVariantPermissionCheckIntegrationTest {
         val baseline = """
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <baseline>
-                <variant name="release">
-                    <uses-permission name="android.permission.INTERNET"/>
-                    <uses-permission maxSdkVersion="26" name="android.permission.CAMERA"/>
-                    <uses-permission-sdk-23 name="android.permission.ACCESS_NETWORK_STATE"/>
-                </variant>
                 <variant name="debug">
                     <uses-permission name="android.permission.INTERNET"/>
                     <uses-permission maxSdkVersion="26" name="android.permission.CAMERA"/>
                     <uses-permission-sdk-23 name="android.permission.ACCESS_NETWORK_STATE"/>
                     <uses-feature name="android.hardware.camera.autofocus" required="false"/>
                     <uses-feature glEsVersion="0x00020000" required="true"/>
+                </variant>
+                <variant name="release">
+                    <uses-permission name="android.permission.INTERNET"/>
+                    <uses-permission maxSdkVersion="26" name="android.permission.CAMERA"/>
+                    <uses-permission-sdk-23 name="android.permission.ACCESS_NETWORK_STATE"/>
                 </variant>
             </baseline>
             
