@@ -43,7 +43,7 @@ abstract class TaskConfigurator {
         extension: PermissionCheckExtension,
         variantName: String
     ): TaskProvider<PermissionCheckTask> {
-        val taskName = "check${variantName.capitalize(Locale.ROOT)}Permissions"
+        val taskName = "check${variantName.replaceFirstChar { if (it.isLowerCase()) it.titlecase(Locale.ROOT) else it.toString() }}Permissions"
 
         return project.tasks.register(taskName, PermissionCheckTask::class.java) { task ->
             task.group = LifecycleBasePlugin.VERIFICATION_GROUP

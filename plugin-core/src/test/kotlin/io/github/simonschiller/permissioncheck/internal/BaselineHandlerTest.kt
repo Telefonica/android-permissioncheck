@@ -69,13 +69,13 @@ class BaselineHandlerTest {
         val expectedBaselineContent = """
             <?xml version="1.0" encoding="UTF-8" standalone="no"?>
             <baseline>
-                <variant name="release">
-                    <uses-permission maxSdkVersion="27" name="android.permission.ACCESS_FINE_LOCATION"/>
-                    <uses-permission-sdk-23 maxSdkVersion="26" name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-                </variant>
                 <variant name="debug">
                     <uses-permission name="android.permission.ACCESS_COARSE_LOCATION"/>
                     <uses-permission-sdk-23 name="android.permission.INTERNET"/>
+                </variant>
+                <variant name="release">
+                    <uses-permission maxSdkVersion="27" name="android.permission.ACCESS_FINE_LOCATION"/>
+                    <uses-permission-sdk-23 maxSdkVersion="26" name="android.permission.WRITE_EXTERNAL_STORAGE"/>
                 </variant>
             </baseline>
             
@@ -229,5 +229,82 @@ class BaselineHandlerTest {
     fun `Exception is thrown if baseline file has wrong type`() {
         val baselineFile = tempDir.resolve("permission-baseline.json")
         assertThrows<IllegalArgumentException> { BaselineHandler(baselineFile) }
+    }
+
+    @Test
+    fun `Baseline is reordering new added variants`() {
+        val baselineFile = tempDir.resolve("permission-baseline.xml")
+        baselineFile.writeText("""
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <baseline>
+                <variant name="release">
+                    <uses-permission maxSdkVersion="27" name="android.permission.ACCESS_FINE_LOCATION"/>
+                    <uses-permission-sdk-23 maxSdkVersion="26" name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+                </variant>
+            </baseline>
+            
+        """.trimIndent())
+
+        val debugPermissions = setOf(
+            Permission("android.permission.ACCESS_COARSE_LOCATION"),
+            Sdk23Permission("android.permission.INTERNET")
+        )
+
+        val baselineHandler = BaselineHandler(baselineFile)
+        baselineHandler.serialize(mapOf("debug" to debugPermissions))
+
+        val expectedBaselineContent = """
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <baseline>
+                <variant name="debug">
+                    <uses-permission name="android.permission.ACCESS_COARSE_LOCATION"/>
+                    <uses-permission-sdk-23 name="android.permission.INTERNET"/>
+                </variant>
+                <variant name="release">
+                    <uses-permission maxSdkVersion="27" name="android.permission.ACCESS_FINE_LOCATION"/>
+                    <uses-permission-sdk-23 maxSdkVersion="26" name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+                </variant>
+            </baseline>
+            
+        """.trimIndent()
+        assertEquals(expectedBaselineContent, baselineFile.readText().normaliseLineSeparators())
+    }
+
+    @Test
+    fun `Baseline is reordering existing variants`() {
+        val baselineFile = tempDir.resolve("permission-baseline.xml")
+        baselineFile.writeText("""
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <baseline>
+                <variant name="release">
+                    <uses-permission maxSdkVersion="27" name="android.permission.ACCESS_FINE_LOCATION"/>
+                    <uses-permission-sdk-23 maxSdkVersion="26" name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+                </variant>
+                <variant name="debug">
+                    <uses-permission name="android.permission.ACCESS_COARSE_LOCATION"/>
+                    <uses-permission-sdk-23 name="android.permission.INTERNET"/>
+                </variant>
+            </baseline>
+            
+        """.trimIndent())
+
+        val baselineHandler = BaselineHandler(baselineFile)
+        baselineHandler.serialize(emptyMap())
+
+        val expectedBaselineContent = """
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <baseline>
+                <variant name="debug">
+                    <uses-permission name="android.permission.ACCESS_COARSE_LOCATION"/>
+                    <uses-permission-sdk-23 name="android.permission.INTERNET"/>
+                </variant>
+                <variant name="release">
+                    <uses-permission maxSdkVersion="27" name="android.permission.ACCESS_FINE_LOCATION"/>
+                    <uses-permission-sdk-23 maxSdkVersion="26" name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+                </variant>
+            </baseline>
+            
+        """.trimIndent()
+        assertEquals(expectedBaselineContent, baselineFile.readText().normaliseLineSeparators())
     }
 }

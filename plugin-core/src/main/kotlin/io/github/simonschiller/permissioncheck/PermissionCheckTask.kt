@@ -70,7 +70,7 @@ open class PermissionCheckTask : DefaultTask() {
 
         // Create (or recreate) the baseline if needed
         if (recreate.get() || !baselineFile.exists()) {
-            baselineHandler.serialize(permissions)
+            baselineHandler.serialize(permissions, recreate.get())
             project.logger.lifecycle("Created baseline at $baselineFile")
             if (!recreate.get()) { // New baseline created without explicit flag -> fail the build
                 abortBuild()
