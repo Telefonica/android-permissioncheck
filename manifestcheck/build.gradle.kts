@@ -45,7 +45,7 @@ gradlePlugin {
             id = "com.telefonica.manifestcheck"
             displayName = "ManifestCheck"
             description = "ManifestCheck is a Gradle plugin that helps you catch Android permission/feature regressions automatically."
-            implementationClass = "io.github.simonschiller.permissioncheck.PermissionCheckPlugin"
+            implementationClass = "com.telefonica.manifestcheck.PermissionCheckPlugin"
         }
     }
     website = "https://github.com/Telefonica/android-permissioncheck"
