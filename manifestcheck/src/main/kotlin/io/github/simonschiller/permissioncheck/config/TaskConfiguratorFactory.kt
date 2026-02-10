@@ -1,9 +1,13 @@
 package io.github.simonschiller.permissioncheck.config
 
-/** Factory that produces different [TaskConfigurator]s to maintain backwards compatibility to older AGP versions. */
+/**
+ * Factory that produces a [TaskConfigurator].
+ *
+ * It returns [TaskConfiguratorV1], as only V1 is supported for AGP 7.0.0+ (including 9.0.0).
+ */
 internal object TaskConfiguratorFactory {
     fun getTaskConfigurator(): TaskConfigurator {
-        // For AGP 7.0.0+ (including 9.0.0), always use V1
+        // Always use V1 for AGP 7.0.0+ (including 9.0.0)
         return TaskConfiguratorV1()
     }
 }
