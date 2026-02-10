@@ -1,6 +1,6 @@
 object Versions { // See https://mvnrepository.com
     const val JUNIT_5 = "5.13.4"
-    const val JUNIT_PLATFORM_LAUNCHER = "1.7.1"
+    const val JUNIT_PLATFORM_LAUNCHER = "1.13.4"
 }
 
 object Dependencies {
