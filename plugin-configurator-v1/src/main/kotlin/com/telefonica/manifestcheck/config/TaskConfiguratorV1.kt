@@ -1,9 +1,8 @@
-package com.telefonica.simonschiller.permissioncheck.config
+package com.telefonica.manifestcheck.config
 
 import com.android.build.api.artifact.SingleArtifact
 import com.android.build.api.variant.AndroidComponentsExtension
 import com.telefonica.manifestcheck.PermissionCheckExtension
-import com.telefonica.manifestcheck.config.TaskConfigurator
 import org.gradle.api.Project
 
 /** Configures the tasks for AGP versions 7.0.0-alpha01 and above. */
