@@ -1,6 +1,7 @@
 package com.telefonica.manifestcheck
 
 import com.android.build.gradle.AppPlugin
+import com.telefonica.manifestcheck.config.TaskConfiguratorV1
 import org.gradle.api.Plugin
 import org.gradle.api.Project
 
@@ -16,8 +17,7 @@ class PermissionCheckPlugin : Plugin<Project> {
                 return@configureEach // Only applicable to app modules
             }
 
-            val taskConfigurator =
-                _root_ide_package_.com.telefonica.simonschiller.permissioncheck.config.TaskConfiguratorV1()
+            val taskConfigurator = TaskConfiguratorV1()
             taskConfigurator.configureTasks(project, extension)
         }
     }
