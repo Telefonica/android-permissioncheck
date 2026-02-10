@@ -138,6 +138,7 @@ class AndroidProjectExtension : BeforeEachCallback, AfterEachCallback {
             }
 
             android {
+                namespace = "com.telefonica.manifestcheck.sample.app"
             	compileSdkVersion(30)
 
         	    defaultConfig {
@@ -145,8 +146,8 @@ class AndroidProjectExtension : BeforeEachCallback, AfterEachCallback {
             		targetSdkVersion(30)
             	}
             
-                lintOptions {
-                    check("")
+                lint {
+                    abortOnError = false
                 }
             }
             
@@ -159,8 +160,7 @@ class AndroidProjectExtension : BeforeEachCallback, AfterEachCallback {
 
         val androidManifest = mainDir.resolve("AndroidManifest.xml")
         androidManifest.writeText("""
-            <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-                package="io.github.simonschiller.permissioncheck.sample.app">
+            <manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
                 <uses-feature android:name="android.hardware.camera.autofocus" android:required="false" />
                 <uses-feature android:glEsVersion="0x00020000" android:required="true" />

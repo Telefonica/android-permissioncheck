@@ -4,16 +4,17 @@ plugins {
 }
 
 android {
-	compileSdkVersion(33)
+    namespace = "com.telefonica.sampleapp" // Update to your actual package name
+    compileSdk = 36
 
-	defaultConfig {
-		minSdkVersion(23)
-		targetSdkVersion(33)
-	}
+    defaultConfig {
+        minSdk = 24
+        targetSdk = 36
+    }
 
-	lintOptions {
-		checkOnly("") // Disable all Lint checks
-	}
+    lint {
+        abortOnError = false
+    }
 }
 
 dependencies {

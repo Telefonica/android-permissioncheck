@@ -6,18 +6,19 @@ plugins {
 }
 
 group = "com.telefonica"
-version = "1.0.2" // Also update the version in the README
+version = "1.0.3" // Also update the version in the README
 
 val uber: Configuration by configurations.creating
 
 dependencies {
     compileOnly(gradleKotlinDsl())
-    compileOnly("com.android.tools.build:gradle:7.0.0")
+    compileOnly("com.android.tools.build:gradle:9.0.0")
 
     uber(project(":plugin-configurator-v1"))
     uber(project(":plugin-core"))
 
     testRuntimeOnly(Dependencies.JUNIT_5_ENGINE)
+    testRuntimeOnly(Dependencies.JUNIT_PLATFORM_LAUNCHER)
     testImplementation(Dependencies.JUNIT_5_API)
     testImplementation(Dependencies.JUNIT_5_PARAMS)
     testImplementation(gradleKotlinDsl())
@@ -29,10 +30,12 @@ configurations {
 
 // Publish all modules as part of a single uber plugin JAR
 tasks.withType<Jar>().configureEach {
+    dependsOn(":plugin-configurator-v1:jar", ":plugin-core:jar")
     from(uber.asSequence().filter { it.startsWith(rootDir) }.map { zipTree(it) }.asIterable())
 }
 
 tasks.withType<Test>().configureEach {
+    useJUnitPlatform()
     dependsOn("publishToMavenLocal")
 }
 
@@ -45,9 +48,6 @@ gradlePlugin {
             implementationClass = "io.github.simonschiller.permissioncheck.PermissionCheckPlugin"
         }
     }
-}
-pluginBundle {
     website = "https://github.com/Telefonica/android-permissioncheck"
     vcsUrl = "https://github.com/Telefonica/android-permissioncheck"
-    tags = listOf("manifestcheck", "permissions")
 }
