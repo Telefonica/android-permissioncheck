@@ -3,14 +3,14 @@ plugins {
 }
 
 android {
-    compileSdkVersion(30)
+    namespace = "com.telefonica.samplelibrary" // Update to your actual package name
+    compileSdk = 36
 
     defaultConfig {
-        minSdkVersion(21)
-        targetSdkVersion(30)
+        minSdk = 24
     }
 
-    lintOptions {
-        checkOnly("") // Disable all Lint checks
+    lint {
+        abortOnError = false
     }
 }
