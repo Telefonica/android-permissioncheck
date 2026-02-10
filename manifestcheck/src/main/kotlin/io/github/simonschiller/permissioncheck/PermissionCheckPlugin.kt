@@ -1,10 +1,9 @@
 package io.github.simonschiller.permissioncheck
 
 import com.android.build.gradle.AppPlugin
-import io.github.simonschiller.permissioncheck.config.TaskConfiguratorFactory
+import io.github.simonschiller.permissioncheck.config.TaskConfiguratorV1
 import org.gradle.api.Plugin
 import org.gradle.api.Project
-import java.util.*
 
 class PermissionCheckPlugin : Plugin<Project> {
     private lateinit var extension: PermissionCheckExtension
@@ -18,7 +17,7 @@ class PermissionCheckPlugin : Plugin<Project> {
                 return@configureEach // Only applicable to app modules
             }
 
-            val taskConfigurator = TaskConfiguratorFactory.getTaskConfigurator()
+            val taskConfigurator = TaskConfiguratorV1()
             taskConfigurator.configureTasks(project, extension)
         }
     }
