@@ -6,7 +6,7 @@ plugins {
 }
 
 group = "com.telefonica"
-version = "1.1.0" // Also update the version in the README
+version = "1.1.1" // Also update the version in the README
 
 val uber: Configuration by configurations.creating
 
