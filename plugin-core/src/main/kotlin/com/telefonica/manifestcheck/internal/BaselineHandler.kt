@@ -34,7 +34,7 @@ internal class BaselineHandler(private val baselineFile: File) {
                 // Create permission entries for a single variant
                 appendElement("variant") {
                     setAttribute("name", variantName)
-                    variantPermissions.forEach { permission ->
+                    variantPermissions.sorted().forEach { permission ->
                         appendChild(permission.toXmlElement(document))
                     }
                 }

@@ -321,4 +321,34 @@ class BaselineHandlerTest {
         """.trimIndent()
         assertEquals(expectedBaselineContent, baselineFile.readText().normaliseLineSeparators())
     }
+
+    @Test
+    fun `Baseline serializes permissions in sorted order`() {
+        val baselineFile = tempDir.resolve("permission-baseline.xml")
+        // Intentionally unsorted
+        val permissions = setOf(
+            Permission("android.permission.INTERNET"),
+            Permission("android.permission.CAMERA"),
+            Sdk23Permission("android.permission.CAMERA"),
+            Sdk23Permission("android.permission.ACCESS_FINE_LOCATION")
+        )
+        val baselineHandler = BaselineHandler(baselineFile)
+        baselineHandler.serialize(mapOf("debug" to permissions))
+
+        val expectedBaselineContent = """
+            <?xml version="1.0" encoding="UTF-8" standalone="no"?>
+            <baseline>
+                <variant name="debug">
+                    <uses-permission-sdk-23 name="android.permission.ACCESS_FINE_LOCATION"/>
+                    <uses-permission name="android.permission.CAMERA"/>
+                    <uses-permission-sdk-23 name="android.permission.CAMERA"/>
+                    <uses-permission name="android.permission.INTERNET"/>
+                </variant>
+            </baseline>
+        """.trimIndent()
+        assertEquals(
+            expectedBaselineContent.trim(),
+            baselineFile.readText().normaliseLineSeparators().trim()
+        )
+    }
 }
